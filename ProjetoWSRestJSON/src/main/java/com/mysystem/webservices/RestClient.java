@@ -1,4 +1,4 @@
-package webservice;
+package com.mysystem.webservices;
 
 
 import java.util.List;
@@ -12,56 +12,55 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.mysystem.entities.Client;
+import com.mysystem.services.ClientService;
 
-import entidades.Usuario;
-import service.UserService;
-
-@Path("/user")
-public class RestUser {
+@Path("/client")
+public class RestClient {
 	
 	   //Instalar o Chrome Advanced REST Client
 	   //Para abrir: chrome://apps/  -> Escolha o ARC
        //Referencia: http://o7planning.org/en/11207/simple-crud-example-with-java-restful-web-service
 
        
-	   //Exemplo: http://localhost:8080/ProjetoWSRestJSON/rest/findById?id=9999
+	   //Exemplo: http://localhost:8080/ProjetoWSRestJSON/rest/client/findById?id=9999
 	   @GET
 	   @Path("/findById")
 	   @Produces(MediaType.APPLICATION_JSON)
-       public Usuario findById(@QueryParam("id") int id){
-             UserService service = new UserService();
+       public Client findById(@QueryParam("id") int id){
+             ClientService service = new ClientService();
              return service.getUserById(id);
        }
 	   
 
-	   //Exemplo: http://localhost:8080/ProjetoWSRestJSON/rest/save
+	   //Exemplo: http://localhost:8080/ProjetoWSRestJSON/rest/client/save
 	   @POST
 	   @Path("/save")
 	   @Produces(MediaType.APPLICATION_JSON)
-       public Usuario save(Usuario user){
-             UserService service = new UserService();
-             return service.save(user);
+       public Client save(Client client){
+             ClientService service = new ClientService();
+             return service.save(client);
        }
 	   
 	   
-	  //Exemplo: http://localhost:8080/ProjetoWSRestJSON/rest/delete?id=99999
+	  //Exemplo: http://localhost:8080/ProjetoWSRestJSON/rest/client/delete?id=99999
 	   @DELETE
 	   @Path("/delete")
 	   @Produces(MediaType.APPLICATION_JSON)
        public void delete(@QueryParam("id") int id){
-             UserService service = new UserService();
+             ClientService service = new ClientService();
              service.delete(id);
        }
 	   
-	   //http://localhost:8080/ProjetoWSRestJSON/rest/user/allUsuarios
+	   //http://localhost:8080/ProjetoWSRestJSON/rest/user/client/all
 	   @GET
-	   @Path("/allUsuarios")
+	   @Path("/all")
 	   @Produces(MediaType.APPLICATION_JSON)
-	   public List<Usuario> getAllUsers(){
-		   List<Usuario> users;
-		   UserService service = new UserService();
-		   users = service.getAllUsarios();
-	       return users;
+	   public List<Client> getAllClients(){
+		   List<Client> clients;
+		   ClientService service = new ClientService();
+		   clients = service.getAllClients();
+	       return clients;
 	   }
 	   
 
@@ -69,8 +68,8 @@ public class RestUser {
 	   @PUT
 	   @Path("/update")
 	   @Produces(MediaType.APPLICATION_JSON)
-	   public Usuario update(Usuario user){
-		   UserService service = new UserService();
+	   public Client update(Client user){
+		   ClientService service = new ClientService();
 		   user = service.update(user);
 	       return user;
 	   }

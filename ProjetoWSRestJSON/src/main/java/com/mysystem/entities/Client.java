@@ -1,4 +1,4 @@
-package entidades;
+package com.mysystem.entities;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ import javax.persistence.Id;
    
 
   @Entity
-  public class Usuario implements Serializable {
+  public class Client implements Serializable {
          
          private static final long serialVersionUID = -3842844978617110554L;
          
@@ -61,5 +61,35 @@ import javax.persistence.Id;
          public void setEmail(String email) {
                this.email = email;
          }
+
+         
+         
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + id;
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Client other = (Client) obj;
+			if (id != other.id)
+				return false;
+			return true;
+		}
+
+		@Override
+		public String toString() {
+			return "Usuario [id=" + id + ", userName=" + userName + ", password=" + password + ", address=" + address
+					+ ", email=" + email + "]";
+		}
    
   }

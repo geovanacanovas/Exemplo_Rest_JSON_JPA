@@ -1,4 +1,4 @@
-package service;
+package com.mysystem.services;
 
 import java.util.List;
 
@@ -6,63 +6,67 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import entidades.Usuario;
+import com.mysystem.entities.Client;
 
 
-public class UserService {
+public class ClientService {
 	
 	private static EntityManagerFactory emf;
 	
 	
-	public UserService() {
+	public ClientService() {
 		emf = Persistence.createEntityManagerFactory("ProjetoWSRestJSON");
 	}
 	
-	public Usuario save(Usuario user){
+	public Client save(Client client){
 	
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
-	    em.persist(user);
+	    em.persist(client);
 	    em.flush();
 	    em.getTransaction().commit();
 		em.close();
-		return user;
+		return client;
 	}
 	
 	
-	public Usuario update(Usuario user){
+	public Client update(Client client){
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
-	    user = em.merge(user);
+	    client = em.merge(client);
 	    em.getTransaction().commit();
 		em.close();
-		return user;
+		return client;
 	}
 	
 	
 
 	@SuppressWarnings("unchecked")
-	public List<Usuario> getAllUsarios(){
+	public List<Client> getAllClients(){
 		
 		EntityManager em = emf.createEntityManager();
-		List <Usuario> list = em.createQuery("Select u From Usuario u").getResultList();
+		List <Client> list = em.createQuery("Select c From Client c").getResultList();
 		em.close();
 		return list;
 	}
 
-	public Usuario getUserById(int id) {
+	public Client getUserById(int id) {
 		EntityManager em = emf.createEntityManager();
-		Usuario user = em.find(Usuario.class, id);
+		Client client = em.find(Client.class, id);
 		em.close();
-		return user;
+		return client;
 	}
 
 	
-	public void delete(int id) {
+	public void delete(Integer id) {
 		EntityManager em = emf.createEntityManager();
-		Usuario user = em.find(Usuario.class, id);
 		em.getTransaction().begin();
-		em.remove(user);
+	
+		Client user = em.find(Client.class, id);
+		
+		if(user != null)
+			em.remove(user);
+		
 		em.getTransaction().commit();
 		em.close();
 	}
